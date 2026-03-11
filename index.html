@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Siddharth Simediya — Systems Engineer & Researcher</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">  <style>
     :root {
       --bg: #0a0c0f;
       --surface: #111318;
@@ -15,7 +15,7 @@
       --accent2: #7b61ff;
       --accent3: #39ff98;
       --text: #e8eaf0;
-      --muted: #6b7280;
+      --muted: #bfbfbf;
       --card: #13161c;
     }
 
@@ -70,7 +70,7 @@
     }
 
     .nav-logo {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
       font-size: 1.1rem;
       letter-spacing: -0.02em;
@@ -80,7 +80,7 @@
       color: inherit;
       text-decoration: none;
     }
-    
+
     .nav-links { display: flex; gap: 2.5rem; }
     .nav-links a {
       font-family: 'DM Mono', monospace;
@@ -124,7 +124,7 @@
     }
 
     h1 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
       font-size: clamp(3.5rem, 8vw, 7rem);
       line-height: 0.95;
@@ -188,7 +188,7 @@
     }
     .stat { text-align: center; }
     .stat-num {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 2rem;
       font-weight: 800;
       color: var(--accent);
@@ -221,7 +221,7 @@
     }
 
     h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       font-size: clamp(1.8rem, 3vw, 2.8rem);
       letter-spacing: -0.03em;
@@ -230,15 +230,16 @@
     }
 
     /* EXPERIENCE */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline { display: flex; flex-direction: column; gap: 0; justify-content: center; align-items: center;}
 
     .timeline-item {
       display: grid;
       grid-template-columns: 200px 1fr;
-      gap: 3rem;
-      padding: 2.5rem 0;
+      gap: 3rem;;
+      padding: 2rem 0;
       border-bottom: 1px solid var(--border);
       position: relative;
+      width: 85%;
     }
     .timeline-item:last-child { border-bottom: none; }
 
@@ -247,18 +248,18 @@
     }
     .timeline-date {
       font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.8rem;
       color: var(--accent);
       letter-spacing: 0.05em;
       margin-bottom: 0.5rem;
     }
     .timeline-company {
-      font-size: 0.85rem;
+      font-size: 1rem;
       color: var(--muted);
     }
 
     .timeline-content h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.15rem;
       font-weight: 700;
       margin-bottom: 0.8rem;
@@ -277,8 +278,8 @@
     }
     .timeline-content ul li {
       color: var(--muted);
-      font-size: 0.88rem;
-      padding: 0.3rem 0;
+      font-size: 1rem;
+      padding: 0.2rem 0;
       padding-left: 1.2rem;
       position: relative;
     }
@@ -334,7 +335,7 @@
     }
 
     .featured-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.4rem;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -356,7 +357,7 @@
       text-align: center;
     }
     .metric-val {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.8rem;
       font-weight: 800;
       color: var(--accent3);
@@ -395,7 +396,7 @@
     }
 
     .project-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 0.6rem;
@@ -466,7 +467,7 @@
       align-items: center;
     }
 
-    .contact-inner h2 { margin-bottom: 1rem; }
+    .contact-inner h2 { margin-bottom: 0.5rem; }
     .contact-inner p { color: var(--muted); margin-bottom: 2rem; }
 
     .contact-links { display: flex; flex-direction: column; gap: 1rem; }
@@ -531,7 +532,7 @@
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
       .hero { padding: 6rem 1.5rem 3rem; }
-      section { padding: 4rem 1.5rem; }
+      section { padding: 2rem 1.5rem; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
       .metrics { grid-template-columns: 1fr; }
       .contact-inner { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
@@ -577,7 +578,7 @@
 </div>
 
 <!-- STATS -->
-<div class="stats-bar">
+<!-- <div class="stats-bar">
   <div class="stat">
     <div class="stat-num">7+</div>
     <div class="stat-label">Years Experience</div>
@@ -594,7 +595,7 @@
     <div class="stat-num">5×</div>
     <div class="stat-label">Throughput Scaling</div>
   </div>
-</div>
+</div> -->
 
 <!-- EXPERIENCE -->
 <section id="experience">
@@ -795,7 +796,7 @@
       <a href="https://github.com/Siddharth2412" class="proj-link" target="_blank">GitHub →</a>
     </div>
 
-    <div class="project-card">
+    <!-- <div class="project-card">
       <div class="proj-icon">🗳️</div>
       <h3>Concession Management System</h3>
       <p>PHP voting platform for large organisations. Supports multi-option polls, voter eligibility control, time-limited polls and pie-chart result display.</p>
@@ -805,7 +806,7 @@
         <span class="tag">JavaScript</span>
       </div>
       <a href="https://github.com/Siddharth2412" class="proj-link" target="_blank">GitHub →</a>
-    </div>
+    </div> -->
   </div>
 </section>
 
