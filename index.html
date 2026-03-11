@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Siddharth Simediya — Systems Engineer & Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0c0f;
+      --surface: #111318;
+      --border: #1e2229;
+      --accent: #00e5ff;
+      --accent2: #7b61ff;
+      --accent3: #39ff98;
+      --text: #e8eaf0;
+      --muted: #6b7280;
+      --card: #13161c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* Glow orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.12;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--accent2); top: -200px; right: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: var(--accent); bottom: 10%; left: -150px; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      backdrop-filter: blur(20px);
+      background: rgba(10,12,15,0.7);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 .line2 { color: var(--accent); }
+    h1 .line3 { color: var(--muted); font-weight: 400; }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* STATS BAR */
+    .stats-bar {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 1.5rem 4rem;
+      display: flex;
+      gap: 4rem;
+      justify-content: center;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative; z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent2);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* EXPERIENCE */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-meta {
+      padding-top: 0.2rem;
+    }
+    .timeline-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-company {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .timeline-content h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .timeline-content p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-content ul {
+      list-style: none;
+      margin-bottom: 1.2rem;
+    }
+    .timeline-content ul li {
+      color: var(--muted);
+      font-size: 0.88rem;
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .timeline-content ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent3);
+      font-size: 0.75rem;
+    }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.25rem 0.7rem;
+      background: var(--border);
+      color: var(--muted);
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+    .tag.accent { background: rgba(0,229,255,0.08); color: var(--accent); border: 1px solid rgba(0,229,255,0.2); }
+
+    /* THESIS / FEATURED */
+    .featured-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .featured-card .badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0,229,255,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 2px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .featured-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .metric {
+      padding: 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .metric-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent3);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .metric-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .project-card:hover {
+      border-color: rgba(0,229,255,0.3);
+      transform: translateY(-3px);
+    }
+
+    .project-card .proj-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    .project-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .proj-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .proj-link:hover { color: #fff; }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-category {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+    .skill-category h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.8rem;
+      background: var(--border);
+      color: var(--text);
+      border-radius: 2px;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .contact-inner h2 { margin-bottom: 1rem; }
+    .contact-inner p { color: var(--muted); margin-bottom: 2rem; }
+
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
+    .contact-link .cl-icon {
+      font-size: 1.1rem;
+      width: 32px;
+      text-align: center;
+    }
+    .contact-link .cl-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 2.5rem 4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero > * {
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero > *:nth-child(4) { animation-delay: 0.4s; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .metrics { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+      .stats-bar { padding: 1.5rem; gap: 2rem; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><a href="https://siddharth2412github.io/">SS<span>.</span></a></div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#thesis">Research</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-tag">Available for new opportunities</p>
+  <h1>
+    Siddharth<br>
+    <span class="line2">Simediya</span><br>
+    <span class="line3">Systems &amp; Cloud</span>
+  </h1>
+  <p class="hero-desc">
+    Research Assistant at GWDG &amp; MSc Applied Computer Science @ Göttingen.
+    I build infrastructure at the intersection of hardware acceleration, Kubernetes, and HPC systems.
+  </p>
+  <div class="hero-ctas">
+    <a href="https://github.com/Siddharth2412" class="btn btn-primary" target="_blank">
+      ↗ GitHub Profile
+    </a>
+    <a href="#contact" class="btn btn-outline">Get in touch</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">7+</div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">23%</div>
+    <div class="stat-label">Latency Improvement</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">97%</div>
+    <div class="stat-label">CPU Overhead Reduction</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5×</div>
+    <div class="stat-label">Throughput Scaling</div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">// Work History</p>
+  <h2>Experience</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-date">09/2023 — 09/2025</div>
+        <div class="timeline-company">GWDG, Göttingen</div>
+      </div>
+      <div class="timeline-content">
+        <h3>Research Assistant</h3>
+        <ul>
+          <li>Improved system reliability by validating configurations against schema (Ironik project)</li>
+          <li>Implemented automatic validation of deployed clusters using Kubernetes</li>
+          <li>Deployed services with Kubernetes &amp; Istio for the KISSKI AI project</li>
+          <li>Enhanced Chat-AI scheduler, added health checks for HPC AI model jobs</li>
+          <li>Introduced scale-to-zero GPU optimization for private model deployment</li>
+          <li>Implemented image generation, audio transcription &amp; memory recognition in Chat-AI</li>
+        </ul>
+        <div class="tag-list">
+          <span class="tag accent">Kubernetes</span>
+          <span class="tag accent">Istio</span>
+          <span class="tag">Python</span>
+          <span class="tag">Docker</span>
+          <span class="tag">OpenStack</span>
+          <span class="tag">Prometheus</span>
+          <span class="tag">Grafana</span>
+          <span class="tag">HPC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-date">08/2022 — 10/2023</div>
+        <div class="timeline-company">Digital Media 360</div>
+      </div>
+      <div class="timeline-content">
+        <h3>Werkstudent Python Developer</h3>
+        <ul>
+          <li>Backend development with Python; behavior testing &amp; CI/CD with Jira &amp; GitLab</li>
+          <li>Developed automated PowerShell scripts and web scrapers using BeautifulSoup &amp; Selenium</li>
+          <li>Built and maintained custom Conda packages</li>
+        </ul>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Selenium</span>
+          <span class="tag">BeautifulSoup</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">GitLab</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-date">08/2022 — 11/2023</div>
+        <div class="timeline-company">Fraunhofer IIS</div>
+      </div>
+      <div class="timeline-content">
+        <h3>Student Assistant</h3>
+        <ul>
+          <li>Developed interactive dashboards using Python/Holoviz (param &amp; panel)</li>
+          <li>Built tooling to generate microcontroller bit files &amp; programming via UniFlash/J-Link</li>
+          <li>Python unit testing with pytest; CI/CD integration with GitLab</li>
+        </ul>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Param</span>
+          <span class="tag">Panel</span>
+          <span class="tag">Numpy</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">GitLab CI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-date">01/2018 — 12/2020</div>
+        <div class="timeline-company">Alpyog Marketing</div>
+      </div>
+      <div class="timeline-content">
+        <h3>E-Commerce Functional Executive</h3>
+        <ul>
+          <li>Built web scraper integrated with Google Sheets via Cloud API</li>
+          <li>Automated inventory management — data retrieval, validation &amp; form-filling from CSV</li>
+          <li>Developed REST APIs &amp; image processing utilities in Python; Google App Script in JS</li>
+        </ul>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">REST API</span>
+          <span class="tag">AWS EC2/EKS</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Google Sheets API</span>
+          <span class="tag">PyQt5</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THESIS / RESEARCH -->
+<section id="thesis">
+  <p class="section-label">// Research</p>
+  <h2>Master's Thesis</h2>
+
+  <div class="featured-card">
+    <span class="badge">04/2025 – 10/2025</span>
+    <h3>Benchmarking Network Acceleration in Kubernetes Clusters<br>with 2nd Gen NVIDIA BlueField DPUs</h3>
+    <p style="color:var(--muted); font-size:0.9rem; max-width:700px; margin-bottom:0.5rem;">
+      Comprehensive performance analysis of DOCA SDK containerized applications on BlueField-2 DPUs, comparing
+      Virtual Function vs Physical Function access modes across latency, throughput, horizontal scaling,
+      and CPU overhead in a dual-node ARM server environment.
+    </p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-val">23.38%</div>
+        <div class="metric-desc">Latency improvement via hardware acceleration</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">5.02×</div>
+        <div class="metric-desc">Throughput at 5 replicas with near-perfect efficiency</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">97%</div>
+        <div class="metric-desc">CPU overhead reduction through DPU offloading</div>
+      </div>
+    </div>
+
+    <div class="tag-list" style="margin-bottom:1.5rem;">
+      <span class="tag accent">NVIDIA BlueField-2</span>
+      <span class="tag accent">DOCA SDK</span>
+      <span class="tag accent">Kubernetes</span>
+      <span class="tag">ARM Servers</span>
+      <span class="tag">ConnectX-6 Dx</span>
+      <span class="tag">Python/matplotlib</span>
+      <span class="tag">Statistical Analysis</span>
+      <span class="tag">LaTeX</span>
+    </div>
+
+    <a href="https://github.com/Siddharth2412/doca-container" class="btn btn-outline" target="_blank" style="font-size:0.78rem;">
+      ↗ View Repository
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">// Side Projects</p>
+  <h2>Projects</h2>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="proj-icon">🤖</div>
+      <h3>GWDG Chat-AI Enhancements</h3>
+      <p>Extended a production HPC-backed Chat-AI platform with scale-to-zero GPU management, health checks, image generation, and audio transcription.</p>
+      <div class="tag-list" style="margin-bottom:1rem;">
+        <span class="tag">Python</span>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">OpenStack</span>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <div class="proj-icon">🛒</div>
+      <h3>Flipkart Web Scraper</h3>
+      <p>Data scraping tool for e-commerce product data — titles, prices, ratings, reviews — exported to CSV. Built with BeautifulSoup and a Tkinter UI.</p>
+      <div class="tag-list" style="margin-bottom:1rem;">
+        <span class="tag">Python</span>
+        <span class="tag">BeautifulSoup</span>
+        <span class="tag">Tkinter</span>
+      </div>
+      <a href="https://github.com/Siddharth2412" class="proj-link" target="_blank">GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-icon">📚</div>
+      <h3>Online Secondhand Bookstore</h3>
+      <p>Full-stack Django web app for selling used books with user auth, book search, order ratings, session management, and REST API integration.</p>
+      <div class="tag-list" style="margin-bottom:1rem;">
+        <span class="tag">Python</span>
+        <span class="tag">Django</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">REST API</span>
+      </div>
+      <a href="https://github.com/Siddharth2412" class="proj-link" target="_blank">GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-icon">🗳️</div>
+      <h3>Concession Management System</h3>
+      <p>PHP voting platform for large organisations. Supports multi-option polls, voter eligibility control, time-limited polls and pie-chart result display.</p>
+      <div class="tag-list" style="margin-bottom:1rem;">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">JavaScript</span>
+      </div>
+      <a href="https://github.com/Siddharth2412" class="proj-link" target="_blank">GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">// Technical Stack</p>
+  <h2>Skills</h2>
+
+  <div class="skills-grid">
+    <div class="skill-category">
+      <h4>Cloud &amp; Infrastructure</h4>
+      <div class="skill-pills">
+        <span class="pill">Kubernetes</span>
+        <span class="pill">Docker</span>
+        <span class="pill">Istio</span>
+        <span class="pill">OpenStack</span>
+        <span class="pill">AWS EC2/EKS</span>
+        <span class="pill">Prometheus</span>
+        <span class="pill">Grafana</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h4>Languages</h4>
+      <div class="skill-pills">
+        <span class="pill">Python</span>
+        <span class="pill">Bash / Shell</span>
+        <span class="pill">JavaScript</span>
+        <span class="pill">PHP</span>
+        <span class="pill">SQL</span>
+        <span class="pill">PowerShell</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h4>HPC &amp; Systems</h4>
+      <div class="skill-pills">
+        <span class="pill">NVIDIA BlueField-2</span>
+        <span class="pill">DOCA SDK</span>
+        <span class="pill">Linux</span>
+        <span class="pill">ARM Servers</span>
+        <span class="pill">HPC KISSKI</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h4>Data &amp; ML Tooling</h4>
+      <div class="skill-pills">
+        <span class="pill">Pandas</span>
+        <span class="pill">NumPy</span>
+        <span class="pill">Matplotlib</span>
+        <span class="pill">Selenium</span>
+        <span class="pill">BeautifulSoup</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h4>DevOps &amp; CI/CD</h4>
+      <div class="skill-pills">
+        <span class="pill">GitLab CI</span>
+        <span class="pill">Jenkins</span>
+        <span class="pill">Jira</span>
+        <span class="pill">Bitbucket</span>
+        <span class="pill">Poetry</span>
+        <span class="pill">Conda</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <h4>Web &amp; Backend</h4>
+      <div class="skill-pills">
+        <span class="pill">Django</span>
+        <span class="pill">REST APIs</span>
+        <span class="pill">MySQL</span>
+        <span class="pill">Google Cloud API</span>
+        <span class="pill">PyQt5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-label">// Get In Touch</p>
+      <h2>Let's work<br>together.</h2>
+      <p>Open to full-time roles in systems engineering, cloud infrastructure, or research-oriented positions. Based in Göttingen, Germany — open to remote.</p>
+      <a href="mailto:ssimediya@gmail.com" class="btn btn-primary">Send an Email →</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:ssimediya@gmail.com" class="contact-link">
+        <span class="cl-icon">✉</span>
+        <span class="cl-label">ssimediya@gmail.com</span>
+      </a>
+      <a href="https://github.com/Siddharth2412" class="contact-link" target="_blank">
+        <span class="cl-icon">⬡</span>
+        <span class="cl-label">github.com/Siddharth2412</span>
+      </a>
+      <a href="tel:+4916383366390" class="contact-link">
+        <span class="cl-icon">☏</span>
+        <span class="cl-label">(+49) 1638336639</span>
+      </a>
+      <div class="contact-link" style="cursor:default;">
+        <span class="cl-icon">◎</span>
+        <span class="cl-label">Göttingen, Germany</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Built with HTML/CSS/JS — Siddharth Simediya © 2025 &nbsp;·&nbsp; Göttingen, Germany
+</footer>
+
+</body>
+</html>
