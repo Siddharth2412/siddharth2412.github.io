@@ -87,7 +87,7 @@ const translations = {
     "exp.dm360.li3": "Erstellung und Pflege von benutzerdefinierten Conda-Paketen.",
     "exp.fhg.role": "Studentische Hilfskraft",
     "exp.fhg.li1": "Entwicklung interaktiver Dashboards mit Python/Holoviz (param &amp; panel)",
-    "exp.fhg.li2": "Werkzeuge zur Generierung von Mikrocontroller-Bit-Dateien &amp; Programmierung via UniFlash/J-Link erstellt",
+    "exp.fhg.li2": "Erstellung eines interaktiven Dashboards zur Anzeige von Mikrocontroller-Bit-Dateien",
     "exp.fhg.li3": "Python-Unit-Tests mit pytest; CI/CD-Integration mit GitLab",
     "exp.alpyog.role": "E-Commerce Funktionsleiter",
     "exp.alpyog.li1": "Web-Scraper mit Google Sheets-Integration über Cloud API entwickelt",
