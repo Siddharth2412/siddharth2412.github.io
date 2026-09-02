@@ -20,6 +20,7 @@
   <div class="nav-links">
     <a href="#experience" data-i18n="nav.experience">Experience</a>
     <a href="#thesis" data-i18n="nav.research">Research</a>
+    <a href="#education" data-i18n="nav.education">Education</a>
     <a href="#projects" data-i18n="nav.projects">Projects</a>
     <a href="#skills" data-i18n="nav.skills">Skills</a>
     <a href="#contact" data-i18n="nav.contact">Contact</a>
@@ -33,15 +34,17 @@
 
 <!-- HERO -->
 <div class="hero">
-  <!-- <p class="hero-tag" data-i18n="hero.tag">Available for new opportunities</p> -->
+  <p class="hero-tag" data-i18n="hero.tag">Available for new opportunities</p>
   <h1>
     Siddharth<br>
     <span class="line2">Simediya</span><br>
-    <span class="line3" data-i18n="hero.title">AI Solutions &amp; Systems Engineer</span>
+    <span class="line3" data-i18n="hero.title">AI Automation &amp; Integration Engineer</span>
   </h1>
   <p class="hero-desc" data-i18n="hero.desc">
-    Research Assistant at GWDG contributing to the KISSKI AI Service Center.
-    I bridge the gap between High-Performance Computing (HPC) and customer-facing AI solutions through secure, private infrastructure.
+    Engineer with hands-on experience integrating AI capabilities into production systems and building
+    API-driven automation — from GWDG's AI chat platform to a self-built FastAPI booking platform with
+    TOTP-based authentication. I automate workflows with Python, model business rules directly into
+    validation logic, and ship changes through CI/CD pipelines and Docker.
   </p>
   <div class="hero-ctas">
     <a href="https://github.com/Siddharth2412" class="btn btn-primary" target="_blank">
@@ -86,22 +89,20 @@
       <div class="timeline-content">
         <h3 data-i18n="exp.gwdg.role">Research Assistant</h3>
         <ul>
-          <!-- <li data-i18n="exp.gwdg.li1">KISSKI Project: Architected and deployed production-grade AI services using Kubernetes and Istio on secure GWDG hardware.</li> -->
-          <li data-i18n="exp.gwdg.li2">Customer Integration: Developed end-user prototypes for Chat-AI, including image generation, audio transcription, and long-term memory recognition.</li>
-          <li data-i18n="exp.gwdg.li3">Enhanced Chat-AI scheduler, added health checks for HPC AI model jobs</li>
-          <li data-i18n="exp.gwdg.li4">Infrastructure Optimization: Introduced scale-to-zero GPU management to optimize private AI model deployment for sensitive use cases.</li>
-          <li data-i18n="exp.gwdg.li5">Reliability Engineering: Implemented automatic validation of clusters to ensure high availability for research services.</li>
-          <li data-i18n="exp.gwdg.li6">Improved system reliability by validating configurations against schema (Ironik project)</li>
+          <li data-i18n="exp.gwdg.li2">Customer Integration: Integrated image generation, audio transcription, and memory functions into the Chat-AI platform.</li>
+          <li data-i18n="exp.gwdg.li3">Implemented health-check mechanisms for AI models on HPC systems and optimized the job scheduler to prevent system crashes.</li>
+          <li data-i18n="exp.gwdg.li4">Infrastructure Optimization: Introduced a scale-to-zero GPU management approach, balancing cost against availability for private AI deployments.</li>
+          <li data-i18n="exp.gwdg.li6">Ironik project: Automated validation of Kubernetes cluster configurations against defined schemas, improving system stability; used Ansible to manage Rancher-based clusters.</li>
+          <li data-i18n="exp.gwdg.li5">Built monitoring and observability tooling across all projects using Prometheus and Grafana.</li>
           <li data-i18n="exp.gwdg.li7">Terminal AI Integration: Developed the “Gofer” tool for accessing Chat-AI via terminal APIs, including Slurm job monitoring, file access, and a chat module with model selection.</li>
         </ul>
         <div class="tag-list">
-          <!-- <span class="tag accent">Kubernetes</span> -->
-          <!-- <span class="tag accent">Istio</span> -->
           <span class="tag accent">Python</span>
           <span class="tag accent">HPC</span>
-          <span class="tag">Shell-Scripting</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Ansible</span>
+          <span class="tag">Rancher</span>
           <span class="tag">Docker</span>
-          <span class="tag">OpenStack</span>
           <span class="tag">Prometheus</span>
           <span class="tag">Grafana</span>
         </div>
@@ -116,7 +117,7 @@
       <div class="timeline-content">
         <h3 data-i18n="exp.dm360.role">Werkstudent Python Developer</h3>
         <ul>
-          <li data-i18n="exp.dm360.li1">Backend development with Python; behavior testing &amp; CI/CD with Jira &amp; GitLab</li>
+          <li data-i18n="exp.dm360.li1">Backend development in Python, applying behavior-driven testing (BDD) methods; ran CI workflows with Jira &amp; GitLab</li>
           <li data-i18n="exp.dm360.li2">Developed automated PowerShell scripts and web scrapers using BeautifulSoup &amp; Selenium</li>
           <li data-i18n="exp.dm360.li3">Built and maintained custom Conda packages</li>
         </ul>
@@ -127,29 +128,6 @@
           <span class="tag">CI/CD</span>
           <span class="tag">Jenkins</span>
           <span class="tag">GitLab</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-meta">
-        <div class="timeline-date">08/2022 — 11/2023</div>
-        <div class="timeline-company">Fraunhofer IIS</div>
-      </div>
-      <div class="timeline-content">
-        <h3 data-i18n="exp.fhg.role">Student Assistant</h3>
-        <ul>
-          <li data-i18n="exp.fhg.li1">Developed interactive dashboards using Python/Holoviz (param &amp; panel)</li>
-          <li data-i18n="exp.fhg.li2">Built interactive Dashboard to display microcontroller bit files</li>
-          <li data-i18n="exp.fhg.li3">Python unit testing with pytest; CI/CD integration with GitLab</li>
-        </ul>
-        <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">Param</span>
-          <span class="tag">Panel</span>
-          <span class="tag">Numpy</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">GitLab CI</span>
         </div>
       </div>
     </div>
@@ -230,12 +208,58 @@
 
 <div class="divider"></div>
 
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label" data-i18n="edu.label">// Education</p>
+  <h2 data-i18n="edu.heading">Education</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-date">10/2022 — 03/2026</div>
+        <div class="timeline-company">Georg-August-Universität Göttingen</div>
+      </div>
+      <div class="timeline-content">
+        <h3 data-i18n="edu.msc.degree">M.Sc. Applied Computer Science</h3>
+        <p data-i18n="edu.msc.desc">Thesis: Benchmarking Network Acceleration in Kubernetes Clusters with 2nd Gen NVIDIA BlueField DPUs.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-date">08/2016 — 08/2020</div>
+        <div class="timeline-company">Sarvajanik College of Engineering &amp; Technology, Surat</div>
+      </div>
+      <div class="timeline-content">
+        <h3 data-i18n="edu.be.degree">B.E. Information Technology</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- PROJECTS -->
 <section id="projects">
   <p class="section-label" data-i18n="proj.label">// Side Projects</p>
   <h2 data-i18n="proj.heading">Projects</h2>
 
   <div class="projects-grid">
+    <div class="project-card">
+      <div class="proj-icon">👶</div>
+      <h3 data-i18n="proj.kinderkreis.title">Kinderkreis — Childcare Booking Platform</h3>
+      <p data-i18n="proj.kinderkreis.desc">Full-stack FastAPI/Pydantic v2 REST API (20 endpoints) for certified childcare booking, with email-OTP user sessions and TOTP-based two-factor admin auth. Regulatory business rules modeled directly into validation, with automatic .ics calendar invites and a 137-test pytest suite, deployed via GitHub Actions CI/CD to Docker Compose.</p>
+      <div class="tag-list" style="margin-bottom:1rem;">
+        <span class="tag accent">FastAPI</span>
+        <span class="tag accent">Pydantic v2</span>
+        <span class="tag">TOTP 2FA</span>
+        <span class="tag">pytest</span>
+        <span class="tag">Docker Compose</span>
+        <span class="tag">GitHub Actions</span>
+      </div>
+      <a href="https://github.com/Siddharth2412/kinderkreis-demo" class="proj-link" target="_blank">GitHub →</a>
+    </div>
+
     <div class="project-card">
       <div class="proj-icon">🤖</div>
       <h3 data-i18n="proj.chatai.title">Job Scraper and Chat-AI API Integration</h3>
@@ -299,7 +323,8 @@
       <div class="skill-pills">
         <span class="pill">Kubernetes</span>
         <span class="pill">Docker</span>
-        <span class="pill">Istio</span>
+        <span class="pill">Ansible</span>
+        <span class="pill">Rancher</span>
         <span class="pill">OpenStack</span>
         <span class="pill">AWS EC2/EKS</span>
         <span class="pill">Prometheus</span>
@@ -340,8 +365,10 @@
     <div class="skill-category">
       <h4 data-i18n="skills.devops">DevOps &amp; CI/CD</h4>
       <div class="skill-pills">
+        <span class="pill">GitHub Actions</span>
         <span class="pill">GitLab CI</span>
         <span class="pill">Jenkins</span>
+        <span class="pill">pytest</span>
         <span class="pill">Jira</span>
         <span class="pill">Bitbucket</span>
         <span class="pill">Poetry</span>
@@ -351,6 +378,9 @@
     <div class="skill-category">
       <h4 data-i18n="skills.web">Web &amp; Backend</h4>
       <div class="skill-pills">
+        <span class="pill">FastAPI</span>
+        <span class="pill">Pydantic v2</span>
+        <span class="pill">TOTP 2FA Auth</span>
         <span class="pill">Django</span>
         <span class="pill">REST APIs</span>
         <span class="pill">MySQL</span>
